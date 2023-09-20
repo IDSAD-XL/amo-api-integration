@@ -16,8 +16,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(xss());
 
 // enable cors
-app.use(cors());
-app.options('*', cors());
+// app.use(cors());
+// app.options('*', cors());
 
 (async () => {
   await AmoService.init()

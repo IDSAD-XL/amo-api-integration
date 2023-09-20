@@ -4,6 +4,7 @@ const router = Router();
 
 router
   .route('/')
+  .get(leadsController.newLead)
   .post(leadsController.newLead)
 
 module.exports = router;
