@@ -5,7 +5,7 @@ const router = Router();
 router
   .route('/')
   .get((req, res) => {
-    res.status(200).send()
+    res.status(200).send("ok")
   })
   .post(leadsController.newLead)
 
