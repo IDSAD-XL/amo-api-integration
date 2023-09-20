@@ -4,7 +4,9 @@ const router = Router();
 
 router
   .route('/')
-  .get(leadsController.newLead)
+  .get((req, res) => {
+    res.status(200).send()
+  })
   .post(leadsController.newLead)
 
 module.exports = router;
