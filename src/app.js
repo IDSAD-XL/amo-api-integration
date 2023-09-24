@@ -2,13 +2,15 @@ const express = require("express")
 const cors = require('cors');
 const xss = require('xss-clean');
 const routes = require("./routes")
-const bodyParser = require("body-parser");
 const AmoService = require("./amo-service")
 
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+// parse json request body
+app.use(express.json());
+
+// parse urlencoded request body
+app.use(express.urlencoded({ extended: true }));
 
 // sanitize request data
 app.use(xss());
