@@ -2,6 +2,7 @@ const catchAsync = require("../utils/catchAsync");
 const leadService = require("../services/leads.service")
 
 const newLead = catchAsync(async (req, res) => {
+  console.log(req)
   await leadService.createNewLead(req.body)
   res.status(200).send()
 })
