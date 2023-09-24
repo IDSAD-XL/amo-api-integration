@@ -1,13 +1,14 @@
 const { leadsController } = require("../controllers");
 const { Router } = require("express");
+const multer = require('multer');
+const upload = multer();
 const router = Router();
 
 router
   .route('/')
   .get((req, res) => {
-    console.log('get request')
-    res.status(200).send("ok")
+    res.sendStatus(200)
   })
-  .post(leadsController.newLead)
+  .post(upload.none(), leadsController.newLead)
 
 module.exports = router;
