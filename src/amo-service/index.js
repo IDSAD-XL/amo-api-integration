@@ -11,28 +11,25 @@ const updateConnection = async () => {
   await client.connection.update();
 }
 
-const init = async () => {
-  const filePath = path.resolve(__dirname, './token.json');
-  let renewTimeout;
+const filePath = path.resolve(__dirname, './token.json');
 
+const init = async () => {
   client.token.on('change', () => {
     const token = client.token.getValue();
     fs.writeFileSync(filePath, JSON.stringify(token));
-
-    // обновление токена по истечению
-    const expiresIn = token.expires_in * 1000;
-
-    clearTimeout(renewTimeout);
-    renewTimeout = setTimeout(updateConnection, expiresIn);
   });
 
-  try {
-    const json = fs.readFileSync(filePath).toString();
-    const currentToken = JSON.parse(json);
-    client.token.setValue(currentToken);
-  } catch (e) {
-    // Файл не найден, некорректный JSON-токен
+  if (fs.existsSync(filePath)) {
+    try {
+      const json = fs.readFileSync(filePath).toString();
+      const currentToken = JSON.parse(json);
+      client.token.setValue(currentToken);
+    } catch (e) {
+      // некорректный JSON-токен
+    }
   }
+
+  await client.connection.connect();
 }
 
 module.exports.init = init
