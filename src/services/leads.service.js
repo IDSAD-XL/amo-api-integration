@@ -2,7 +2,10 @@ const client = require("../amo-service/client")
 
 const createNewLead = async (entity) => {
   console.log(entity)
-  const { name, email, phone, price, leadName } = entity
+  let { name, email, phone, price, leadName } = entity
+  if (!price) {
+    price = 0
+  }
   const contactEntity = {
     name: name,
     custom_fields_values: [
