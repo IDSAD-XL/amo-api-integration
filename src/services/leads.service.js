@@ -4,7 +4,7 @@ const createNewLead = async (entity) => {
   console.log(entity)
   let { pipeline_id, name, email, phone, price, leadName } = entity
   if (!pipeline_id) {
-    pipeline_id = '37118529'
+    pipeline_id = '3865977'
   }
   if (!price) {
     price = 0
@@ -13,7 +13,7 @@ const createNewLead = async (entity) => {
     name: name,
     custom_fields_values: [
       {
-        field_id: 2405385,
+        field_id: 35797,
         values: [
           {
             value: phone
@@ -21,7 +21,7 @@ const createNewLead = async (entity) => {
         ]
       },
       {
-        field_id: 2405387,
+        field_id: 35799,
         values: [
           {
             value: email
