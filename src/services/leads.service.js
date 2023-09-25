@@ -2,7 +2,10 @@ const client = require("../amo-service/client")
 
 const createNewLead = async (entity) => {
   console.log(entity)
-  let { name, email, phone, price, leadName } = entity
+  let { pipeline_id, name, email, phone, price, leadName } = entity
+  if (!pipeline_id) {
+    pipeline_id = '37118529'
+  }
   if (!price) {
     price = 0
   }
@@ -33,6 +36,7 @@ const createNewLead = async (entity) => {
   const leadEntity = {
     name: leadName,
     price: Number(price),
+    pipeline_id: Number(pipeline_id),
     _embedded: {
       contacts: [{ id: newContact.id }]
     }
