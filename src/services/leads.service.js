@@ -11,25 +11,36 @@ const createNewLead = async (entity) => {
   }
   const contactEntity = {
     name: name,
-    custom_fields_values: [
-      {
-        field_id: 35797,
-        values: [
-          {
-            value: phone
-          }
-        ]
-      },
-      {
-        field_id: 35799,
-        values: [
-          {
-            value: email
-          }
-        ]
-      },
-    ]
   }
+
+  if (email) {
+    if (!contactEntity.custom_fields_values) {
+      contactEntity.custom_fields_values = []
+    }
+    contactEntity.custom_fields_values.push({
+      field_id: 35799,
+      values: [
+        {
+          value: email
+        }
+      ]
+    })
+  }
+
+  if (phone) {
+    if (!contactEntity.custom_fields_values) {
+      contactEntity.custom_fields_values = []
+    }
+    contactEntity.custom_fields_values.push({
+      field_id: 35797,
+      values: [
+        {
+          value: phone
+        }
+      ]
+    })
+  }
+
   const newContactArray = await client.contacts.create([contactEntity])
   const newContact = newContactArray[0]
 
@@ -73,8 +84,6 @@ const createNewLead = async (entity) => {
       ]
     })
   }
-
-  console.log(leadEntity)
 
   await client.leads.create([leadEntity])
 }
