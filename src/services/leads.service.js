@@ -2,7 +2,7 @@ const client = require("../amo-service/client")
 
 const createNewLead = async (entity) => {
   console.log(entity)
-  let { pipeline_id, name, email, phone, price, leadName, position, activityScope,  isEntity } = entity
+  let { pipeline_id, name, email, phone, price, leadName, position, activityScope, isEntity, leadTags } = entity
   if (!pipeline_id) {
     pipeline_id = '3865977'
   }
@@ -53,8 +53,21 @@ const createNewLead = async (entity) => {
     }
   }
 
-  if (isEntity === true) {
-    leadEntity._embedded.tags = [{ id: 489630 }]
+  if (isEntity === 'yes') {
+    if (!leadEntity._embedded.tags) {
+      leadEntity._embedded.tags = []
+    }
+    leadEntity._embedded.tags.push({ id: 489630 })
+  }
+
+  if (leadTags) {
+    if (!leadEntity._embedded.tags) {
+      leadEntity._embedded.tags = []
+    }
+    const splitTags = leadTags.split(',')
+    for (const tagItem of splitTags) {
+      leadEntity._embedded.tags.push({ id: Number(tagItem) })
+    }
   }
 
   if (position) {
