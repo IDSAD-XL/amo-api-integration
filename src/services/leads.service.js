@@ -105,6 +105,7 @@ const createNewLead = async (entity) => {
   //Курс
   if (course) {
     addCustomField(leadEntity, 682039, course)
+    addCustomField(leadEntity, 831620, course)
   }
 
   //Метка
